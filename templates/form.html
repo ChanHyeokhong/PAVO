@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PAVO</title>
+    <style>
+        textarea::placeholder {
+            color : #BFBCBC;
+            font-style: italic ;
+            font-weight: bold;
+        }
+        .wrap {
+            width: 800px;
+        }
+        .wrap textarea {
+            width: 102%;
+            resize: none;
+            overflow-y: hidden; /* prevents scroll bar flash */h
+            padding: 1.1em; /* prevents text jump on Enter keypress */
+            padding-bottom: 0.2em;
+            line-height: 1.6;
+        }
+        button{
+            background: #911329;
+            color:#fff;
+            border:none;
+            position:relative;
+            height:50px;
+            font-size:1.6em;
+            padding:0 2em;
+            cursor:pointer;
+            transition:800ms ease all;
+            outline:none;
+        }
+        button:hover{
+            background:#fff;
+            color:#911329;
+        }
+        button:before,button:after{
+            content:'';
+            position:absolute;
+            top:0;
+            right:0;
+            height:2px;
+            width:0;
+            background: #911329;
+            transition:200ms ease all;
+        }
+        button:after{
+            right:inherit;
+            top:inherit;
+            left:0;
+            bottom:0;
+        }
+        button:hover:before,button:hover:after{
+            width:100%;
+            transition:800ms ease all;
+        }
+    </style>
+    <script>
+    $(document).ready(function() {
+      $('.wrap').on( 'keyup', 'textarea', function (e){
+        $(this).css('height', 'auto' );
+        $(this).height( this.scrollHeight );
+      });
+      $('.wrap').find( 'textarea' ).keyup();
+    });
+  </script>
+</head>
+<body>
+<div align="center">
+    <font color = "#ED636D" size = "20pt"><h1>PAVO Summarizer</h1></font>
+    <from class = "Com">
+        <p>
+            <button>URL 요약</button>
+            <button>본문 요약</button>
+        </p>
+    </from>
+<form action="{{ url_for('submit') }}" method="post">
+    <div class = "wrap">
+    <textarea name ="text" rows="30" cols="1" align = "center" wrap = "OFF" placeholder="200자 이상 작성 / 200자 이하 작성시 번역만 가능" ></textarea>
+    <p>
+        <select class = "form-control" name = "lan" size = "1" align = "center">
+             <option value="ENG">영어</option>
+             <option value="KOR">한국어</option>
+            <option value="URL(E)">URL(영어)</option>
+            <option value="URL(K)">URL(한국어)</option>
+        </select>
+    </p>
+    <p><input type = "reset" value="취소"><input type = "submit" value = "요약"></p>
+    </div>
+</form>
+</div>
+</body>
+</html>
